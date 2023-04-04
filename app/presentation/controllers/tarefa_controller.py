@@ -1,58 +1,53 @@
 from fastapi import APIRouter, HTTPException, status
 
-from app.persistence.filme_mongodb_repository import FilmeMongoDBRepository
-from app.persistence.filme_repository import FilmeInMemoryRepository
+from app.persistence.tarefa_mongodb_repository import TarefaMongoDBRepository
 
-from ..viewmodels import Filme
+from ..viewmodels import Tarefa
 
-print('Filme Controller ✅')
+
 routes = APIRouter()
-prefix = '/filmes'
-
-# Banco de Dados
-# filme_repository = FilmeInMemoryRepository()
-filme_repository = FilmeMongoDBRepository()
+prefix = '/tarefas'
+tarefa_repository = TarefaMongoDBRepository()
 
 
 @routes.get('/')
-def todos_filmes(skip: int | None = 0, take: int | None = 0):
-    return filme_repository.todos(skip, take)
+def todos_tarefas(skip: int | None = 0, take: int | None = 0):
+    return tarefa_repository.todos(skip, take)
 
 
-@routes.get('/{filme_id}')
-def obter_filme(filme_id: int | str):
-    filme = filme_repository.obter_um(filme_id)
+@routes.get('/{tarefa_id}')
+def obter_tarefa(tarefa_id: int | str):
+    tarefa = tarefa_repository.obter_um(tarefa_id)
 
-    # fail fast
-    if not filme:
+    if not tarefa:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                            detail=f'Não há filme com id = {filme_id }')
+                            detail=f'Não há tarefa com id = {tarefa_id }')
 
-    return filme
+    return tarefa
 
 
 @routes.post('/', status_code=status.HTTP_201_CREATED)
-def novo_filme(filme: Filme):
-    return filme_repository.salvar(filme)
+def novo_tarefa(tarefa: Tarefa):
+    return tarefa_repository.salvar(tarefa)
 
 
-@routes.delete("/{filme_id}", status_code=status.HTTP_204_NO_CONTENT)
-def remover_filme(filme_id: int | str):
-    filme = filme_repository.obter_um(filme_id)
+@routes.delete("/{tarefa_id}", status_code=status.HTTP_204_NO_CONTENT)
+def remover_tarefa(tarefa_id: int | str):
+    tarefa = tarefa_repository.obter_um(tarefa_id)
 
-    if not filme:
+    if not tarefa:
         raise HTTPException(status.HTTP_404_NOT_FOUND,
-                            detail="Filme não encontrado")
+                            detail="tarefa não encontrado")
 
-    filme_repository.remover(filme_id)
+    tarefa_repository.remover(tarefa_id)
 
 
-@routes.put('/{filme_id}')
-def atualizar_filme(filme_id: int | str, filme: Filme):
-    filme_encontrado = filme_repository.obter_um(filme_id)
+@routes.put('/{tarefa_id}')
+def atualizar_tarefa(tarefa_id: int | str, tarefa: Tarefa):
+    tarefa_encontrado = tarefa_repository.obter_um(tarefa_id)
 
-    if not filme_encontrado:
+    if not tarefa_encontrado:
         raise HTTPException(status.HTTP_404_NOT_FOUND,
-                            detail="Filme não encontrado")
+                            detail="tarefa não encontrado")
 
-    return filme_repository.atualizar(filme_id, filme)
+    return tarefa_repository.atualizar(tarefa_id, tarefa)
