@@ -4,10 +4,10 @@ from bson.objectid import ObjectId
 from decouple import config
 from pymongo import MongoClient
 
-from ..presentation.viewmodels import Filme
+from ..presentation.viewmodels import Tarefa
 
 
-class FilmeMongo(TypedDict):
+class TarefaMongo(TypedDict):
     _id: ObjectId
     nome: str
     genero: str
@@ -15,42 +15,37 @@ class FilmeMongo(TypedDict):
     duracao: int
 
 
-class FilmeMongoDBRepository():
+class TarefaMongoDBRepository():
 
     def __init__(self):
         # Connect to MongoDB
         # uri = 'mongodb://localhost:27017'
         uri = config('MONGODB_URL')
         client = MongoClient(uri)
-        db = client['filmesapp']
-        self.filmes = db['filmes']
-
-        try:
-            # print('Info MongoDB Server: ', client.server_info())
-            print('MongoDB 💖')
-        except Exception:
-            print('Deu erro!')
+        db = client['tarefasapp']
+        self.tarefas = db['tarefas']
+        
 
     def todos(self, skip=0, take=0):
-        filmes = self.filmes.find().skip(skip).limit(take)
-        return list(map(Filme.fromDict, filmes))
+        tarefas = self.tarefas.find().skip(skip).limit(take)
+        return list(map(Tarefa.fromDict, tarefas))
 
-    def salvar(self, filme):
-        _id = self.filmes.insert_one(filme.toDict()).inserted_id
-        filme.id = str(_id)
-        return filme
+    def salvar(self, tarefa):
+        _id = self.tareafas.insert_one(tarefa.toDict()).inserted_id
+        tarefa.id = str(_id)
+        return tarefa
 
-    def obter_um(self, filme_id):
-        filtro = {"_id": ObjectId(filme_id)}
-        filme_encontrado = self.filmes.find_one(filtro)
-        return Filme.fromDict(filme_encontrado) if filme_encontrado else None
+    def obter_um(self, tarefa_id):
+        filtro = {"_id": ObjectId(tarefa_id)}
+        tarefa_encontrado = self.tarefas.find_one(filtro)
+        return Tarefa.fromDict(tarefa_encontrado) if tarefa_encontrado else None
 
-    def remover(self, filme_id):
-        filtro = {"_id": ObjectId(filme_id)}
-        self.filmes.delete_one(filtro)
+    def remover(self, tarefa_id):
+        filtro = {"_id": ObjectId(tarefa_id)}
+        self.tarefas.delete_one(filtro)
 
-    def atualizar(self, filme_id, filme):
-        filtro = {"_id": ObjectId(filme_id)}
-        self.filmes.update_one(filtro, {'$set': filme.toDict()})
-        filme.id = filme_id
-        return filme
+    def atualizar(self, tarefa_id, tarefa):
+        filtro = {"_id": ObjectId(tarefa_id)}
+        self.tarefas.update_one(filtro, {'$set': filme.toDict()})
+        tarefa.id = tarefa_id
+        return tarefa
