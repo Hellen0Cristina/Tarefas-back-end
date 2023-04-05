@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Task App</title>
+</head>
+<body>
+    <div class="container">
+      <h1>Lista de Tarefas</h1>
+        <div class="criar-tarefa">
+          <form id="form-tarefa" action="#">
+            <label for="formulario">Descrição</label>
+            <input type="text" name="formulario" id="descricao">
+            <label for="responsavel">Responsável</label>
+            <input type="text" name="responsavel" id="responsavel">
+            <label for="nivel">Nível</label>
+            <input type="text" name="nivel" id="nivel">
+            <label for="prioridade">Prioridade</label>
+            <input type="number" name="prioridade" id="prioridade">
+            
+            <button type="submit" class="btn">Adicionar Tarefa</button>
+          </form>
+        </div>
+
+        <div class="tarefas">
+          <div class="card">
+            <p id="descricao">Descrição</p>
+            <p>responsável</p>
+            <span>nivel</span>
+            <span>situação</span>
+            <span>prioridade</span>
+            <div class="btn">
+              <button>Editar</button>
+              <button>Apagar</button>
+              <button>Concluir</button>
+            </div>
+        </div>
+
+            <div class="card">
+              <p id="descricao">Descrição</p>
+              <p>responsável</p>
+              <span>nivel</span>
+              <span>situação</span>
+              <span>prioridade</span>
+              <div class="btn">
+                <button>Editar</button>
+                <button>Apagar</button>
+                <button>Concluir</button>
+
+              </div>
+          </div>
+
+            <div class="card">
+              <p id="descricao">Descrição</p>
+              <p>responsável</p>
+              <span>nivel</span>
+              <span>situação</span>
+              <span>prioridade</span>
+              <div class="btn">
+                <button>Editar</button>
+                <button>Apagar</button>
+                <button>Concluir</button>
+              </div>
+          </div>
+
+            <div class="card">
+              <p id="descricao">Descrição</p>
+              <p>responsável</p>
+              <span>nivel</span>
+              <span>situação</span>
+              <span>prioridade</span>
+              <div class="btn">
+                <button>Editar</button>
+                <button>Apagar</button>
+                <button>Concluir</button>
+              </div>
+          </div>
+
+        </div>
+    </div>
+  
+    <script src="script.js"></script>
+</body>
+</html>
