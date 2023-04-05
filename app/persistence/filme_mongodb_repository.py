@@ -52,6 +52,6 @@ class TarefaMongoDBRepository():
 
     def cancelar(self, tarefa_id, tarefa):
         filtro = {"_id": ObjectId(tarefa_id)}
-        self.tarefas.update_one(filtro, {'$set': tarefa.toDict()})
+        self.tarefas.update_one(filtro, {'$set': {"situacao": cancelar})
         
         
