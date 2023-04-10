@@ -50,8 +50,6 @@ class TarefaMongoDBRepository():
         tarefa.id = tarefa_id
         return tarefa
 
-    def cancelar(self, tarefa_id, tarefa):
+    def concluir(self, tarefa_id):
         filtro = {"_id": ObjectId(tarefa_id)}
-        self.tarefas.update_one(filtro, {'$set': {"situacao": cancelar})
-        
-        
+        self.tarefas.update_one(filtro, {'$set': {"situacao": "Completa"})
