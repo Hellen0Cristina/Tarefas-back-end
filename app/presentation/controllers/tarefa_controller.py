@@ -60,4 +60,4 @@ def cancelar_tarefa(tarefa_id: int | str):
         raise HTTPException(status.HTTP_404_NOT_FOUND,
                             detail="tarefa não encontrado")
 
-    tarefa_repository.cancelar(tarefa_id)
+    tarefa_repository.concluir(tarefa_id)
